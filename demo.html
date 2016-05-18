@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>Chatsillo</h1>
+	<h2 id="texto">Hola</h2>
+	<textarea id="area" cols='80' rows='10'></textarea><br>
+	<button id="enviar" style="width:200px;height:100px;background:lightgreen;">Enviar</button>
+
+
+
+
+
+<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+
+<script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+<script>
+	$(document).ready(function(){
+
+	var ref = new Firebase('https://cintanegraback.firebaseio.com');
+
+	$('#enviar').on('click',function(){
+
+		 
+		ref.push({
+			message:$('#area').val()
+		});
+
+		
+	});
+
+	ref.on('child_added',function(snapshot){
+			
+			var newText = snapshot.val();
+
+			$('#texto').append('<p>' + newText.message + '</p>');
+		});
+
+
+	});
+</script>
+
+</body>
+</html>
